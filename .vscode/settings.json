@@ -4,5 +4,10 @@
   ],
   "python.autoComplete.extraPaths": [
     "${workspaceFolder}/__pypackages__/3.10/lib"
-  ]
+  ],
+  "python.testing.pytestArgs": [
+    "enocean_ble"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
 }
