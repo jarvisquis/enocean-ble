@@ -14,6 +14,7 @@ def simple_callback(device: BLEDevice, advertisement_data: AdvertisementData):
         decoder = PTM215BDecoder(
             BluetoothServiceInfo.from_advertisement(device, advertisement_data, "")
         )
+        print(device.address)
         print(
             "signature_valid: "
             + str(decoder.is_signature_valid(b'D\x18\xe4\x0c{{\x05na\xaa"\\C.\xa8\xad'))

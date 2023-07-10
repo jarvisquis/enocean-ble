@@ -51,10 +51,10 @@ class PTM215BDecoder:
             nonce=self._get_nonce(),
             mac_len=4,
             msg_len=0,
-            assoc_len=len(self.input_data),
+            assoc_len=len(self._input_data),
         )
 
-        cipher.update(self.input_data)
+        cipher.update(self._input_data)
         try:
             cipher.verify(self.signature)
         except ValueError:
