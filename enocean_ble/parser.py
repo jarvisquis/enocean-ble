@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 MANUFACTURER_ID = 0x3DA
 
-class EnoecanDeviceClass(BinarySensorDeviceClass):
+class EnoceanDeviceClass(BinarySensorDeviceClass):
     # On means button pressed
     PRESSED = "pressed"
 
@@ -24,10 +24,10 @@ class EnoceanBluetoothDeviceData(BluetoothData):
         self, security_key: Optional[str] = None, validate_signature: bool = False
     ) -> None:
         super().__init__()
+        self._validate_signature = security_key is not None
         self._security_key = (
-            bytes.fromhex(security_key) if security_key is not None else None
+            bytes.fromhex(security_key) if self._validate_signature else None
         )
-        self._validate_signature = validate_signature
 
     def _start_update(self, data: BluetoothServiceInfo) -> None:
         if MANUFACTURER_ID not in data.manufacturer_data:
@@ -54,25 +54,25 @@ class EnoceanBluetoothDeviceData(BluetoothData):
         self.update_binary_sensor(
             f"a0_pressed",
             decoder.a0_action and decoder.is_press_action,
-            EnoecanDeviceClass.PRESSED,
+            EnoceanDeviceClass.PRESSED,
             "Channel A0",
         )
         self.update_binary_sensor(
             "a1_pressed",
             decoder.a1_action and decoder.is_press_action,
-            EnoecanDeviceClass.PRESSED,
+            EnoceanDeviceClass.PRESSED,
             "Channel A1",
         )
         self.update_binary_sensor(
             "b0_pressed",
             decoder.b0_action and decoder.is_press_action,
-            EnoecanDeviceClass.PRESSED,
+            EnoceanDeviceClass.PRESSED,
             "Channel B0",
         )
         self.update_binary_sensor(
             "b1_pressed",
             decoder.b1_action and decoder.is_press_action,
-            EnoecanDeviceClass.PRESSED,
+            EnoceanDeviceClass.PRESSED,
             "Channel B1",
         )
 
