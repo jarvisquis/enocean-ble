@@ -4,12 +4,17 @@ from typing import Optional
 from bluetooth_data_tools import short_address
 from bluetooth_sensor_state_data import BluetoothData
 from home_assistant_bluetooth import BluetoothServiceInfo
+from sensor_state_data import BinarySensorDeviceClass
 
 from .decoder import PTM215BDecoder, TelegramType
 
 logger = logging.getLogger(__name__)
 
 MANUFACTURER_ID = 0x3DA
+
+class EnoecanDeviceClass(BinarySensorDeviceClass):
+    # On means button pressed
+    PRESSED = "pressed"
 
 
 class EnoceanBluetoothDeviceData(BluetoothData):
@@ -49,25 +54,25 @@ class EnoceanBluetoothDeviceData(BluetoothData):
         self.update_binary_sensor(
             f"a0_pressed",
             decoder.a0_action and decoder.is_press_action,
-            None,
+            EnoecanDeviceClass.PRESSED,
             "Channel A0",
         )
         self.update_binary_sensor(
             "a1_pressed",
             decoder.a1_action and decoder.is_press_action,
-            None,
+            EnoecanDeviceClass.PRESSED,
             "Channel A1",
         )
         self.update_binary_sensor(
             "b0_pressed",
             decoder.b0_action and decoder.is_press_action,
-            None,
+            EnoecanDeviceClass.PRESSED,
             "Channel B0",
         )
         self.update_binary_sensor(
             "b1_pressed",
             decoder.b1_action and decoder.is_press_action,
-            None,
+            EnoecanDeviceClass.PRESSED,
             "Channel B1",
         )
 

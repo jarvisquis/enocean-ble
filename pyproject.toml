@@ -1,7 +1,7 @@
 
 [project]
 name = "enocean-ble"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = [
     {name = "Christian Ohde", email = "christian.s1989@gmail.com"},
